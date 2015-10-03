@@ -1,0 +1,53 @@
+{
+  "name": "passport-taccounts-oauth2",
+  "description": "Passport strategy for authenticating with Telefonica Accounts OAuth 2.0 API",
+  "version": "0.0.1",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Guido García Bernardo",
+    "email": "guido.garciabernardo@telefonica.com"
+  },
+  "contributors": [
+    "Javier Mendiara Cañardo <javier.mendiaracanardo@telefonica.com>",
+    "Guido García Bernardo <guido.garciabernardo@telefonica.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:TDAF/passport-taccounts-oauth2.git"
+  },
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">= 0.10.26"
+  },
+  "scripts": {
+    "test": "mocha -R spec test/environment.js test/unit/*-test.js",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R dot test/environment.js test/unit/*-test.js",
+    "lint": "jscs lib && eslint lib",
+    "prepublish": "npm run test && npm run lint",
+    "travis": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test/environment.js test/unit/*-test.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+  },
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.16",
+    "mocha": "^2.2.5",
+    "proxyquire": "^1.5.0",
+    "should": "^7.0.1",
+    "sinon": "~1.15.3",
+    "sinon-chai": "^2.8.0",
+    "supertest": "^1.0.1",
+    "xunit-file": "^0.0.6",
+    "jscs": "^1.13.1",
+    "eslint": "^0.23.0"
+  },
+  "dependencies": {
+    "passport-oauth2": "^1.1.2",
+    "request": "^2.64.0"
+  },
+  "keywords": [
+    "passport",
+    "authentication",
+    "telefonica",
+    "oauth"
+  ]
+}
