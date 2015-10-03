@@ -3,10 +3,11 @@
 var events = require('events'),
     util = require('util'),
     sinon = require('sinon'),
+    nock = require('nock'),
     OAuth2Strategy = require('passport-oauth2'),
     TAccountsStrategy = require('../../lib');
 
-describe('TAccounts Tests', function() {
+describe('TAccounts basic tests', function() {
   it('should create a TAccounts object', function(done) {
     expect(TAccountsStrategy.prototype instanceof OAuth2Strategy).to.be.true;
     done();
@@ -41,5 +42,45 @@ describe('TAccounts Tests', function() {
     expect(options.profileURL).to.exist;
     expect(options.scope).to.exist;
     done();
+  });
+});
+
+describe('TAccounts user profile', function() {
+  it('should request the user profile', function(done) {
+    var options = {
+      clientID: '2b8672be-5c80-ac91-96da-f4b922105431',
+      clientSecret: 'f5d689ac-fc2c-4e32-ac8a-321212ca1a8d'
+    };
+    function verify() {};
+
+    var strategy = new TAccountsStrategy(options, verify);
+
+    var fakeProfile = {foo: 'bar'};
+    nock(options.profileURL).get('').reply(200, fakeProfile);
+
+    strategy.userProfile('faketoken', function(err, profile) {
+      expect(err).to.not.exist;
+      expect(profile).to.be.deep.equal(fakeProfile);
+      done();
+    });
+  });
+
+  it('should throw an error if it can get the profile', function(done) {
+    var options = {
+      clientID: '2b8672be-5c80-ac91-96da-f4b922105431',
+      clientSecret: 'f5d689ac-fc2c-4e32-ac8a-321212ca1a8d'
+    };
+    function verify() {};
+
+    var strategy = new TAccountsStrategy(options, verify);
+
+    var fakeProfile = {foo: 'bar'};
+    nock(options.profileURL).get('').reply(500);
+
+    strategy.userProfile('faketoken', function(err, profile) {
+      expect(err).to.be.instanceof(Error);
+      expect(profile).to.not.exist;
+      done();
+    });
   });
 });
