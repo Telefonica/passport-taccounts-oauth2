@@ -2,6 +2,10 @@
 
 Passport strategy for authenticating with Telefonica Accounts OAuth 2.0 API
 
+[![npm version](https://badge.fury.io/js/passport-taccounts-oauth2.svg)](http://badge.fury.io/js/passport-taccounts-oauth2)
+[![Build Status](https://travis-ci.org/TDAF/passport-taccounts-oauth2.svg)](https://travis-ci.org/TDAF/passport-taccounts-oauth2)
+[![Coverage Status](https://img.shields.io/coveralls/TDAF/passport-taccounts-oauth2.svg)](https://coveralls.io/r/TDAF/passport-taccounts-oauth2)
+
 ## Basic usage
 
 ```javascript
