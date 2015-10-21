@@ -83,4 +83,22 @@ describe('TAccounts user profile', function() {
       done();
     });
   });
+
+  it('should use authorization params', function(done) {
+    var options = {
+      clientID: '2b8672be-5c80-ac91-96da-f4b922105431',
+      clientSecret: 'f5d689ac-fc2c-4e32-ac8a-321212ca1a8d',
+      authorizeParams:{
+        prompt: 'login'
+      }
+    };
+    function verify() {};
+
+    var strategy = new TAccountsStrategy(options, verify);
+
+    var params = strategy.authorizationParams();
+    expect(params).to.be.deep.equal(options.authorizeParams);
+
+    done();
+  });
 });
