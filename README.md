@@ -61,6 +61,7 @@ are running your own TAccounts service:
 * authorizationURL
 * tokenURL
 * profileURL
+* authorizeParams: supports prompt='login'
 
 ## License
 
