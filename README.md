@@ -29,27 +29,43 @@ passport.use(strategy);
 
 ## User profile
 
-The user profile contains the information provided by Telefonica Accounts.
+To make integrations easier, the user profile is normalized according to [passport recommendations](http://passportjs.org/docs/profile).
+The original payload is also returned for those who need additional information from Telefonica Accounts. For example:
 
 ```json
 {
-    "profile": {},
-    "lastUpdateTime": "2015-09-24T10:31:50.882Z",
-    "userId": "ab21e7c5-919b-40b4-b24d-3a7925af7b22",
-    "creationTime": "2015-09-18T09:06:53.724Z",
-    "accountStatus": 1,
-    "hasPassword": true,
-    "identities": {
-        "emails": [
-            {
-                "verified": true,
-                "verificationTime": "2015-09-18T09:08:14.324Z",
-                "url": "http://10.95.213.40:8080/telefonica/validate/email",
-                "creationTime": "2015-09-18T09:06:53.724Z",
-                "address": "nombre.apellidoapellido@telefonica.com",
-                "main": true
-            }
-        ]
+    "provider": "taccounts",
+    "id": "e2a1e7c5-9a9b-40b4-b24d-1a7925ba7b92",
+    "displayName": "Andrés Iniesta",
+    "emails": [
+        {
+            "value": "andres@iniesta.com",
+            "primary": true
+        }
+    ],
+    "payload": {
+        "profile": {
+            "language_pages": true,
+            "fullname": " Andrés Iniesta",
+            "language_code": "es"
+        },
+        "lastUpdateTime": "2015-11-09T19:27:36.100Z",
+        "userId": "e2a1e7c5-9a9b-40b4-b24d-1a7925ba7b92",
+        "creationTime": "2015-09-18T09:06:53.724Z",
+        "accountStatus": 1,
+        "hasPassword": true,
+        "identities": {
+            "emails": [
+                {
+                    "verified": true,
+                    "verificationTime": "2015-09-18T09:08:14.324Z",
+                    "url": "https://accounts.tid.es/telefonica/validate/email",
+                    "creationTime": "2015-09-18T09:06:53.724Z",
+                    "address": "andres@iniesta.com",
+                    "main": true
+                }
+            ]
+        }
     }
 }
 ```
