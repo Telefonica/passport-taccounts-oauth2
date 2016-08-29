@@ -4,6 +4,8 @@ var events = require('events'),
     util = require('util'),
     sinon = require('sinon'),
     nock = require('nock'),
+    request = require('supertest'),
+    express = require('express'),
     OAuth2Strategy = require('passport-oauth2'),
     TAccountsStrategy = require('../../lib');
 
@@ -65,6 +67,7 @@ describe('TAccounts basic tests', function() {
     expect(options.authorizationURL).to.exist;
     expect(options.tokenURL).to.exist;
     expect(options.profileURL).to.exist;
+    expect(options.logoutURL).to.exist;
     expect(options.scope).to.exist;
     done();
   });
@@ -128,5 +131,45 @@ describe('TAccounts user profile', function() {
     expect(params).to.be.deep.equal(options.authorizeParams);
 
     done();
+  });
+});
+
+describe('TAccounts logout', function() {
+  it('should throw when trying to use logout mw and no option for logoutCallbackURL has been defined', function() {
+    var options = {
+      clientID: '2b8672be-5c80-ac91-96da-f4b922105431',
+      clientSecret: 'f5d689ac-fc2c-4e32-ac8a-321212ca1a8d'
+    };
+    function verify() {}
+
+    var strategy = new TAccountsStrategy(options, verify);
+
+    function createLogout() {
+      return strategy.logout();
+    }
+
+    expect(createLogout).to.throw(TypeError);
+  });
+
+  it('should redirect to Telefonica when calling logout', function(done) {
+    var options = {
+      clientID: '2b8672be-5c80-ac91-96da-f4b922105431',
+      clientSecret: 'f5d689ac-fc2c-4e32-ac8a-321212ca1a8d',
+      logoutCallbackURL: 'http://localhost/auth/logout'
+    };
+    function verify() {}
+
+    var strategy = new TAccountsStrategy(options, verify);
+
+    var app = express();
+    app.get('/auth/taccounts/logout', strategy.logout());
+
+    request(app)
+        .get('/auth/taccounts/logout')
+        .expect(302)
+        .end(function(err, res) {
+          expect(res.header.location).to.be.eql(options.logoutURL + '?post_logout_redirect_uri=' + options.logoutCallbackURL);
+          done(err);
+        });
   });
 });

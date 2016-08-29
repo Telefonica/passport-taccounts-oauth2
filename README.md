@@ -79,6 +79,34 @@ are running your own TAccounts service:
 * profileURL
 * authorizeParams: supports prompt='login'
 
+### Logout from Telefónica Accounts
+
+The strategy exposes a new method `logout` as an addition to the common passportJS ones. Use this method to create a middleware that logouts the user directly from 
+Telefónica Accounts and redirects back to the specified `logoutCallbackURL` 
+
+```js
+
+var options = {
+   // Other options
+  logoutCallbackURL: 'http://localhost/auth/logout'
+};
+
+var strategy = new TAccountsStrategy(options, verify);
+
+passport.use(strategy);
+
+app.get('/auth/taccounts/', passport.authenticate('taccounts'));
+app.get('/auth/taccounts/callback', passport.authenticate('taccounts'));
+app.get('/auth/taccounts/logout', strategy.logout());
+
+app.get('/auth/logout', function(req, res) {
+  // Gets redirected here after logging out from Telefónica Accounts
+  req.logout();
+  res.redirect('/');
+});
+```
+
+
 ## License
 
 Copyright 2015 [Telefónica Investigación y Desarrollo, S.A.U](http://www.tid.es)
