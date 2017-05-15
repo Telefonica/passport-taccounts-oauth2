@@ -1,7 +1,7 @@
 {
   "name": "passport-taccounts-oauth2",
   "description": "Passport strategy for authenticating with Telefonica Accounts OAuth 2.0 API",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "Apache-2.0",
   "author": {
     "name": "Guido García Bernardo",
