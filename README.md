@@ -34,39 +34,20 @@ The original payload is also returned for those who need additional information 
 
 ```json
 {
-    "provider": "taccounts",
-    "id": "e2a1e7c5-9a9b-40b4-b24d-1a7925ba7b92",
-    "displayName": "Andrés Iniesta",
-    "emails": [
-        {
-            "value": "andres@iniesta.com",
-            "primary": true
-        }
-    ],
-    "payload": {
-        "profile": {
-            "language_pages": true,
-            "fullname": " Andrés Iniesta",
-            "language_code": "es"
-        },
-        "lastUpdateTime": "2015-11-09T19:27:36.100Z",
-        "userId": "e2a1e7c5-9a9b-40b4-b24d-1a7925ba7b92",
-        "creationTime": "2015-09-18T09:06:53.724Z",
-        "accountStatus": 1,
-        "hasPassword": true,
-        "identities": {
-            "emails": [
-                {
-                    "verified": true,
-                    "verificationTime": "2015-09-18T09:08:14.324Z",
-                    "url": "https://accounts.tid.es/telefonica/validate/email",
-                    "creationTime": "2015-09-18T09:06:53.724Z",
-                    "address": "andres@iniesta.com",
-                    "main": true
-                }
-            ]
-        }
-    }
+  "email": "frodo.bolson@telefonica.com",
+  "local_company_alias": "HI_frodo",
+  "company": "Telefónica S.A.",
+  "tags": [
+      "ldap_auth",
+      "telefonica_user"
+  ],
+  "sub": "9d2ccf1f-746d-4455-9793-44e1bc8caaa6",
+  "locale": "es",
+  "email_verified": true,
+  "updated_at": "2016-10-25T10:28:35.289Z",
+  "name": "FRODO BOLSON",
+  "phone_number": "+34666666666",
+  "phone_number_verified": true
 }
 ```
 
@@ -81,8 +62,8 @@ are running your own TAccounts service:
 
 ### Logout from Telefónica Accounts
 
-The strategy exposes a new method `logout` as an addition to the common passportJS ones. Use this method to create a middleware that logouts the user directly from 
-Telefónica Accounts and redirects back to the specified `logoutCallbackURL` 
+The strategy exposes a new method `logout` as an addition to the common passportJS ones. Use this method to create a middleware that logouts the user directly from
+Telefónica Accounts and redirects back to the specified `logoutCallbackURL`
 
 ```js
 
