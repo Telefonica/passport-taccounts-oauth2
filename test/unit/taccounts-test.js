@@ -10,18 +10,28 @@ var events = require('events'),
     TAccountsStrategy = require('../../lib');
 
 var TACCOUNTS_PROFILE = {
-    "email": "frodo.bolson@telefonica.com",
-    "local_company_alias": "HI_frodo",
-    "company": "Telefónica S.A.",
-    "tags": [
-        "ldap_auth",
-        "telefonica_user"
-    ],
-    "sub": "9d2ccf1f-746d-4455-9793-44e1bc8caaa6",
-    "locale": "es",
-    "email_verified": true,
-    "updated_at": "2016-10-25T10:28:35.289Z",
-    "name": "FRODO BOLSON"
+  "profile": {
+    "language_pages": true,
+    "fullname": " Andrés Iniesta",
+    "language_code": "es"
+  },
+  "lastUpdateTime": "2015-11-09T19:27:36.100Z",
+  "userId": "e2a1e7c5-9a9b-40b4-b24d-1a7925ba7b92",
+  "creationTime": "2015-09-18T09:06:53.724Z",
+  "accountStatus": 1,
+  "hasPassword": true,
+  "identities": {
+    "emails": [
+      {
+        "verified": true,
+        "verificationTime": "2015-09-18T09:08:14.324Z",
+        "url": "https://accounts.tid.es/telefonica/validate/email",
+        "creationTime": "2015-09-18T09:06:53.724Z",
+        "address": "andres@iniesta.com",
+        "main": true
+      }
+    ]
+  }
 };
 
 describe('TAccounts basic tests', function() {
@@ -78,9 +88,9 @@ describe('TAccounts user profile', function() {
 
     strategy.userProfile('faketoken', function(err, profile) {
       expect(err).to.not.exist;
-      expect(profile.displayName).to.be.deep.equal(fakeProfile.name);
-      expect(profile.id).to.be.deep.equal(fakeProfile.sub);
-      expect(profile.emails[0]).to.be.deep.equal(fakeProfile.email);
+      expect(profile.displayName).to.be.deep.equal(fakeProfile.profile.fullname);
+      expect(profile.id).to.be.deep.equal(fakeProfile.userId);
+      expect(profile.emails[0].value).to.be.deep.equal(fakeProfile.identities.emails[0].address);
       expect(profile.payload).to.be.deep.equal(fakeProfile);
       done();
     });
