@@ -80,7 +80,7 @@ describe('TAccounts user profile', function() {
       expect(err).to.not.exist;
       expect(profile.displayName).to.be.deep.equal(fakeProfile.name);
       expect(profile.id).to.be.deep.equal(fakeProfile.sub);
-      expect(profile.emails[0].value).to.be.deep.equal(fakeProfile.email);
+      expect(profile.emails[0]).to.be.deep.equal(fakeProfile.email);
       expect(profile.payload).to.be.deep.equal(fakeProfile);
       done();
     });
